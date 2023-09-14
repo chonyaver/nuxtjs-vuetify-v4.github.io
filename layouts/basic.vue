@@ -1014,21 +1014,20 @@ export default {
           title: "หน้าหลัก",
           icon: "mdi-home",
           class:
-            "d-flex flex ml-auto mr-0 my-1 py-1 align-center text-center transparent medium",
+            "d-flex flex ml-sm-1 ml-md-auto ml-lg-auto ml-xl-auto mr-0 my-1 py-1 align-center text-center medium",
           route: "/"
         },
         {
           title: "อัตราแลกเปลี่ยน",
           icon: "mdi-currency-usd",
-          class:
-            "d-flex flex mx-0 my-1 py-1 align-center text-center transparent medium",
+          class: "d-flex flex mx-0 my-1 py-1 align-center text-center medium",
           route: "/currencies"
         },
         {
           title: "วิธีซื้อขาย",
           icon: "mdi-help-box",
           class:
-            "d-flex flex ml-0 mr-auto my-1 py-1 align-center text-center transparent medium",
+            "d-flex flex ml-0 mr-sm-1 mr-md-auto mr-lg-auto mr-xl-auto my-1 py-1 align-center text-center medium",
           route: "/guides"
         }
       ],
@@ -1040,32 +1039,38 @@ export default {
         {
           color: "success",
           link: "#",
-          icon: "mdi-chat"
+          icon: "mdi-chat",
+          title: "ไลน์"
         },
         {
           color: "#0072B5",
           link: "#",
-          icon: "mdi-phone"
+          icon: "mdi-phone",
+          title: "โทรหาเรา"
         },
         {
           color: "#004a75",
           link: "#",
-          icon: "mdi-facebook-messenger"
+          icon: "mdi-facebook-messenger",
+          title: "เฟสบุ๊ค เมสเซ็นเจอร์"
         },
         {
           color: "green darken-1",
           link: "#",
-          icon: "mdi-whatsapp"
+          icon: "mdi-whatsapp",
+          title: "วอสแอป"
         },
         {
           color: "blue darken-3",
           link: "#",
-          icon: "mdi-twitter"
+          icon: "mdi-twitter",
+          title: "ทวิทเตอร์"
         },
         {
           color: "blown darken-3",
           link: "#",
-          icon: "mdi-email"
+          icon: "mdi-email",
+          title: "อีเมลล์"
         }
       ],
       newMessages: false,
@@ -1079,19 +1084,76 @@ export default {
     },
     uid() {
       return this.$store.state.uid;
-    },
-    colors() {
-      let color = "black";
-      if (this.newCount === 0) {
-        color = "yellow";
-      }
-      return color;
     }
   },
 
   mounted() {
-    if (this.newCount && this.newCount > 0) {
-      this.newMessages = true;
+    if (this.IS_AUTHENTICATED) {
+      this.bMenus = [
+        {
+          id: "1",
+          title: "เข้าสู่ระบบ",
+          icon: "mdi-login",
+          class:
+            "d-flex flex ml-sm-1 ml-md-auto ml-lg-auto ml-xl-auto mr-0 my-1 py-1 align-center text-center medium",
+          route: "/login"
+        },
+        {
+          id: "2",
+          title: "สมัครสมาชิก",
+          icon: "mdi-account-plus",
+          class: "d-flex flex mx-0 my-1 py-1 align-center text-center medium",
+          route: "/register"
+        },
+        {
+          id: "3",
+          title: "แจ้งโอน",
+          icon: "mdi-hand-coin",
+          class: "d-flex flex mx-0 my-1 py-1 align-center text-center medium",
+          route: "/new-order"
+        },
+        {
+          id: "4",
+          title: "ติดต่อเรา",
+          icon: "mdi-account-box",
+          class:
+            "d-flex flex ml-0 mr-sm-1 mr-md-auto mr-lg-auto mr-xl-auto my-1 py-1 align-center text-center medium",
+          route: "/contact"
+        }
+      ];
+    } else if (!this.IS_AUTHENTICATED) {
+      this.bMenus = [
+        {
+          id: "5",
+          title: "ศูนย์สมาชิก",
+          icon: "mdi-account",
+          class:
+            "d-flex flex ml-sm-1 ml-md-auto ml-lg-auto ml-xl-auto mr-0 my-1 py-1 align-center text-center medium",
+          route: "/users"
+        },
+        {
+          id: "6",
+          title: "แจ้งโอน",
+          icon: "mdi-hand-coin",
+          class: "d-flex flex mx-0 my-1 py-1 align-center text-center medium",
+          route: "/new-order"
+        },
+        {
+          id: "7",
+          title: "ประวัติ",
+          icon: "mdi-history",
+          class: "d-flex flex mx-0 my-1 py-1 align-center text-center medium",
+          route: "/orders"
+        },
+        {
+          id: "8",
+          title: "ติดต่อเรา",
+          icon: "mdi-account-box",
+          class:
+            "d-flex flex ml-0 mr-sm-1 mr-md-auto mr-lg-auto mr-xl-auto my-1 py-1 align-center text-center medium",
+          route: "/contact"
+        }
+      ];
     }
   },
 
