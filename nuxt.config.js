@@ -9,20 +9,6 @@ module.exports = {
   mode: "universal",
 
   target: "static",
-
-  runtimeConfig: {
-    public: {
-      apiKey: process.env.FB_API_KEY,
-      authDomain: process.env.FB_AUTH_DOMAIN,
-      databaseURL: process.env.FB_RTDB_URL,
-      projectId: process.env.FB_PROJECT_ID,
-      storageBucket: process.env.FB_STORAGE_BUCKET,
-      messagingSenderId: process.env.FB_FCM_SENDER_ID,
-      appId: process.env.FB_APP_ID,
-      measurementId: process.env.FB_MEASUREMENT_ID
-    }
-  },
-
   /*
    ** Headers of the page
    ** Doc: https://vue-meta.nuxtjs.org/api/#metainfo-properties
@@ -72,7 +58,7 @@ module.exports = {
    ** Plugins to load before mounting the App
    ** Doc: https://nuxtjs.org/guide/plugins
    */
-  plugins: [{ src: "~/plugins/axios.js" }],
+  plugins: [],
 
   components: true,
 
@@ -85,40 +71,12 @@ module.exports = {
   modules: [
     // TODO: Remove it if you want to eject from codeSandbox
     "./codesandbox",
-    ["cookie-universal-nuxt", { parseJSON: true, fromRes: true }],
     "@nuxtjs/axios",
-    "@nuxtjs/dotenv",
-    "@nuxtjs/firebase"
+    "@nuxtjs/dotenv"
   ],
 
   axios: {
     baseURL: process.env.BASE_URL
-  },
-
-  firebase: {
-    config: {
-      apiKey: process.env.FB_API_KEY,
-      authDomain: process.env.FB_AUTH_DOMAIN,
-      databaseURL: process.env.FB_RTDB_URL,
-      projectId: process.env.FB_PROJECT_ID,
-      storageBucket: process.env.FB_STORAGE_BUCKET,
-      messagingSenderId: process.env.FB_FCM_SENDER_ID,
-      appId: process.env.FB_APP_ID,
-      measurementId: process.env.FB_MEASUREMENT_ID
-    },
-    services: {
-      auth: {
-        persistence: "none",
-        ssr: false,
-        ignorePaths: ["/api"]
-      },
-      database: true,
-      storage: true,
-      firestore: true,
-      functions: true
-    },
-    onFirebaseHosting: false,
-    terminateDatabasesAfterGenerate: true
   },
 
   env: {
@@ -145,10 +103,6 @@ module.exports = {
   // handler: "~/api/index.js"
   // }
   // ],
-
-  router: {
-    middleware: ["ssr-cookie"]
-  },
 
   buildDir: ".nuxt",
 

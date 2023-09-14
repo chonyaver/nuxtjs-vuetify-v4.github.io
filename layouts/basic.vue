@@ -965,8 +965,6 @@ v-file-input:below-level {
 </style>
 
 <script>
-import { auth } from "~/plugins/firebase-init";
-
 export default {
   name: "BasicLayout",
 
@@ -1093,7 +1091,7 @@ export default {
     }
   },
 
-  mounted() {
+  created() {
     if (this.IS_AUTHENTICATED) {
       this.bMenus = [
         {
@@ -1165,11 +1163,10 @@ export default {
 
   methods: {
     logout() {
-      auth.signOut().then(() => {
-        this.$store.dispatch("SET_SESSION_COOKIE", { idToken: null });
-        this.$store.commit("SET_UID", null);
-        this.$router.replace("/login");
-      });
+      this.$router.replace("/login");
+    },
+    reload() {
+      this.$router.replace("/");
     }
   }
 };

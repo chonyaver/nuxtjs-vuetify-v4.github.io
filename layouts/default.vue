@@ -4,6 +4,7 @@
       v-model="drawer"
       app
       dark
+      fixed
       class="bg9"
       max-width="300px"
     >
@@ -32,6 +33,8 @@
             rounded
             block
             dense
+            nuxt
+            to="/login"
           >
             <v-icon color="primary">
               mdi-login
@@ -49,6 +52,7 @@
             rounded
             block
             dense
+            @click="logout()"
           >
             <v-icon color="accent">
               mdi-logout
@@ -74,27 +78,12 @@
       </template>
     </v-navigation-drawer>
 
-    <v-main class="bg-animate-light">
+    <v-main class="bg-animate-light" fill-height>
       <v-container fluid>
         <Nuxt />
-        <v-btn
-          color="transparent"
-          class="absolute-left flex grad3 rounded-r align-center text-center ml-0"
-          max-width="58px"
-          height="44px"
-          elevation="0s"
-          dark
-          small
-          @click="goBack()"
-        >
-          <v-icon>
-            mdi-arrow-left-thick
-          </v-icon>
-        </v-btn>
         <v-speed-dial
           v-model="fab"
-          dark
-          class="absolute-right"
+          class="top-right mr-0"
           :direction="direction"
           :transition="transition"
         >
@@ -103,16 +92,16 @@
               v-model="fab"
               color="transparent"
               elevation="0"
-              class="flex align-center text-center grad4 rounded-l rounded-r-0 t-white t-shadow text-button"
-              max-width="58px"
-              height="44px"
+              class="d-flex flex rounded-r-0 align-center text-center mr-1 grad4 t-white medium"
               dark
               small
+              max-width="54px"
+              height="38px"
             >
               <v-icon v-if="fab">
                 mdi-close
               </v-icon>
-              <span v-else class="t-white t-shadow text-button">
+              <span v-else class="t-white medium t-shadow">
                 แชท
               </span>
             </v-btn>
@@ -121,10 +110,12 @@
             v-for="(speedItem, i) in speedItems"
             :key="i"
             :color="speedItem.color"
-            :href="speedItem.link"
+            :title="speedItem.title"
             dark
             fab
             small
+            :href="speedItem.link"
+            target="_blank"
           >
             <v-icon>
               {{ speedItem.icon }}
@@ -133,48 +124,46 @@
         </v-speed-dial>
       </v-container>
     </v-main>
-    <!-- Bottom menu -->
+
     <v-card
+      app
+      dark
+      elevation="12"
       class="bottom grad10 pa-1"
       width="100%"
       height="auto"
-      elevation="18"
-      app
-      dark
       tile
     >
       <v-card-actions
-        class="d-flex align-center justify-center text-center px-1 py-0 transparent"
+        class="d-flex px-1 py-0 justify-center align-center text-center transparent"
       >
         <v-spacer />
         <v-btn
           v-for="bMenu in bMenus"
           :key="bMenu.id"
-          :class="bMenu.class"
-          elevation="15"
-          width="auto"
-          :height="$vuetify.breakpoint.smAndDown ? '58.5px' : '60px'"
+          color="transparent"
           :title="bMenu.title"
+          :class="bMenu.class"
+          width="auto"
+          :height="$vuetify.breakpoint.smAndDown ? '50px' : '55px'"
           dark
+          depressed
           link
           router
           :to="bMenu.route"
         >
           <span
-            class="d-block ma-auto pa-2 justify-center align-center text-center t-white medium"
+            class="d-block ma-auto px-sm-1 px-md-2 px-lg-3 px-xl-4 py-2 align-center text-center t-white medium"
           >
-            <v-icon
-              class="t-white mx-auto mb-1"
-              :small="$vuetify.breakpoint.smAndDown"
-            >
+            <v-icon class="mx-auto mb-1" :small="$vuetify.breakpoint.smAndDown">
               {{ bMenu.icon }}
             </v-icon>
             <br />
             {{ bMenu.title }}
             <span
               v-if="bMenu.id === '5' && newCount > 0"
-              class="d-flex pa-1 red small white--text align-center text-center"
-              style="position: absolute; top: 3px; left: 51%; border-radius: 50%; width: auto; height: auto; max-height: 18px"
+              class="d-flex flex align-center text-center pa-1 red t-white small"
+              style="position: absolute; top: 3px; left: 51.5%; border-radius: 50%; width: auto; height: auto; max-height: 18px"
             >
               {{ newCount }}
             </span>
@@ -183,45 +172,68 @@
         <v-spacer />
       </v-card-actions>
     </v-card>
-    <!-- Top menu -->
+
     <v-card
-      class="top grad11 pa-1"
-      width="100%"
-      height="auto"
-      elevation="15"
       app
       dark
+      elevation="15"
+      class="top grad11 py-1 px-0"
+      width="100%"
+      height="auto"
       tile
     >
       <v-card-actions
-        class="d-flex align-center justify-center text-center px-1 py-0 transparent"
+        class="d-flex transparent px-1 py-0 justify-center align-center text-center"
       >
-        <v-app-bar-nav-icon
-          class="mt-1 ml-0 mr-xs-3 mr-sm-2 mr-md-3 mr-lg-auto mr-xl-auto mb-auto"
-          x-small
+        <v-btn
+          color="transparent"
+          class="d-flex flex rounded-l-0 ml-0 mr-auto align-center text-center grad3 t-white t-shadow medium"
+          max-width="54px"
+          height="38px"
+          dark
+          elevation="0"
+          small
           @click.stop="drawer = !drawer"
-        />
+        >
+          <v-app-bar-nav-icon x-small />
+        </v-btn>
+        <div class="mx-3"></div>
+        <v-spacer />
+        <v-btn
+          color="white"
+          class="d-flex flex mx-auto my-1 py-1 px-2 align-center text-center large"
+          dark
+          text
+          depressed
+          small
+        >
+          {{ pageTitle }}
+        </v-btn>
+        <v-spacer />
+        <div class="mx-3"></div>
+      </v-card-actions>
+      <v-card-actions
+        class="d-flex px-0 py-0 grad9 justify-center align-center text-center"
+      >
         <v-spacer />
         <v-btn
           v-for="(mItem, i) in mItems"
           :key="i"
+          color="transparent"
           :class="mItem.class"
           width="auto"
-          :height="$vuetify.breakpoint.smAndDown ? '55px' : '60px'"
+          :height="$vuetify.breakpoint.smAndDown ? '48px' : '53px'"
           :title="mItem.title"
-          elevation="7"
           dark
+          depressed
           link
           router
           :to="mItem.route"
         >
           <span
-            class="d-block ma-auto pa-2 justify-center align-center text-center t-white medium"
+            class="d-block ma-auto px-sm-1 px-md-2 px-lg-3 px-xl-4 py-2 justify-center align-center text-center t-white medium"
           >
-            <v-icon
-              class="t-white mx-auto mb-1"
-              :small="$vuetify.breakpoint.smAndDown"
-            >
+            <v-icon :small="$vuetify.breakpoint.smAndDown" class="mx-auto mb-1">
               {{ mItem.icon }}
             </v-icon>
             <br />
@@ -229,7 +241,6 @@
           </span>
         </v-btn>
         <v-spacer />
-        <div class="mx-3"></div>
       </v-card-actions>
     </v-card>
   </v-app>
@@ -991,8 +1002,6 @@ v-file-input:below-level {
 </style>
 
 <script>
-import { auth } from "~/plugins/firebase-init";
-
 export default {
   name: "DefaultLayout",
 
@@ -1026,6 +1035,7 @@ export default {
 
   data() {
     return {
+      pageTitle: "",
       drawer: true,
       items: [
         { title: "หน้าหลัก", to: "/" },
@@ -1042,21 +1052,20 @@ export default {
           title: "หน้าหลัก",
           icon: "mdi-home",
           class:
-            "d-flex flex ml-auto mr-0 my-1 py-1 align-center text-center grad2 medium",
+            "d-flex flex ml-sm-1 ml-md-auto ml-lg-auto ml-xl-auto mr-0 my-1 py-1 align-center text-center medium",
           route: "/"
         },
         {
           title: "อัตราแลกเปลี่ยน",
           icon: "mdi-currency-usd",
-          class:
-            "d-flex flex mx-0 my-1 py-1 align-center text-center grad2 medium",
+          class: "d-flex flex mx-0 my-1 py-1 align-center text-center medium",
           route: "/currencies"
         },
         {
           title: "วิธีซื้อขาย",
           icon: "mdi-help-box",
           class:
-            "d-flex flex ml-0 mr-auto my-1 py-1 align-center text-center grad2 medium",
+            "d-flex flex ml-0 mr-sm-1 mr-md-auto mr-lg-auto mr-xl-auto my-1 py-1 align-center text-center medium",
           route: "/guides"
         }
       ],
@@ -1068,35 +1077,41 @@ export default {
         {
           color: "success",
           link: "#",
-          icon: "mdi-chat"
+          icon: "mdi-chat",
+          title: "ไลน์"
         },
         {
           color: "#0072B5",
           link: "#",
-          icon: "mdi-phone"
+          icon: "mdi-phone",
+          title: "โทรหาเรา"
         },
         {
           color: "#004a75",
           link: "#",
-          icon: "mdi-facebook-messenger"
+          icon: "mdi-facebook-messenger",
+          title: "เฟสบุ๊ค เมสเซ็นเจอร์"
         },
         {
           color: "green darken-1",
           link: "#",
-          icon: "mdi-whatsapp"
+          icon: "mdi-whatsapp",
+          title: "วอสแอป"
         },
         {
           color: "blue darken-3",
           link: "#",
-          icon: "mdi-twitter"
+          icon: "mdi-twitter",
+          title: "ทวิทเตอร์"
         },
         {
           color: "blown darken-3",
           link: "#",
-          icon: "mdi-email"
+          icon: "mdi-email",
+          title: "อีเมลล์"
         }
       ],
-      newCount: 7
+      newCount: 8
     };
   },
 
@@ -1109,90 +1124,131 @@ export default {
     }
   },
 
-  created() {
-    if (this.IS_AUTHENTICATED) {
-      this.bMenus = [
-        {
-          id: "1",
-          title: "เข้าสู่ระบบ",
-          icon: "mdi-login",
-          class:
-            "d-flex flex ml-auto mr-0 my-1 py-1 align-center text-center grad2 medium",
-          route: "/login"
-        },
-        {
-          id: "2",
-          title: "สมัครสมาชิก",
-          icon: "mdi-account-plus",
-          class:
-            "d-flex flex mx-0 my-1 py-1 align-center text-center grad2 medium",
-          route: "/register"
-        },
-        {
-          id: "3",
-          title: "แจ้งโอน",
-          icon: "mdi-hand-coin",
-          class:
-            "d-flex flex mx-0 my-1 py-1 align-center text-center grad2 medium",
-          route: "/new-order"
-        },
-        {
-          id: "4",
-          title: "ติดต่อเรา",
-          icon: "mdi-account-box",
-          class:
-            "d-flex flex ml-0 mr-auto my-1 py-1 align-center text-center grad2 medium",
-          route: "/contact"
-        }
-      ];
-    } else if (!this.IS_AUTHENTICATED) {
-      this.bMenus = [
-        {
-          id: "5",
-          title: "ศูนย์สมาชิก",
-          icon: "mdi-account",
-          class:
-            "d-flex flex ml-auto mr-0 my-1 py-1 align-center text-center grad2 medium",
-          route: "/users"
-        },
-        {
-          id: "6",
-          title: "แจ้งโอน",
-          icon: "mdi-hand-coin",
-          class:
-            "d-flex flex mx-0 my-1 py-1 align-center text-center dark3 medium",
-          route: "/new-order"
-        },
-        {
-          id: "7",
-          title: "ประวัติ",
-          icon: "mdi-history",
-          class:
-            "d-flex flex mx-0 my-1 py-1 align-center text-center grad2 medium",
-          route: "/orders"
-        },
-        {
-          id: "8",
-          title: "ติดต่อเรา",
-          icon: "mdi-account-box",
-          class:
-            "d-flex flex ml-0 mr-auto my-1 py-1 align-center text-center dark3 medium",
-          route: "/contact"
-        }
-      ];
-    }
+  mounted() {
+    const name = this.$route.name;
+    this.getPageTitle(name);
+
+    this.getBMenus();
   },
 
   methods: {
+    getPageTitle(name) {
+      switch (name) {
+        case "index":
+          this.pageTitle = "หน้าหลัก";
+          break;
+        case "currencies":
+          this.pageTitle = "อัตราแลกเปลี่ยน";
+          break;
+        case "guides":
+          this.pageTitle = "วิธีซื้อขาย";
+          break;
+        case "login":
+          this.pageTitle = "เข้าสู่ระบบ";
+          break;
+        case "register":
+          this.pageTitle = "สมัครสมาชิก";
+          break;
+        case "new-order":
+          this.pageTitle = "แจ้งโอน";
+          break;
+        case "contact":
+          this.pageTitle = "ติดต่อเรา";
+          break;
+        case "users":
+          this.pageTitle = "ศูนย์สมาชิก";
+          break;
+        case "orders":
+          this.pageTitle = "ประวัติ";
+          break;
+        case "messages":
+          this.pageTitle = "ข้อความ";
+          break;
+        case "policies":
+          this.pageTitle = "นโยบายและข้อกำหนด";
+          break;
+        case "about":
+          this.pageTitle = "เกี่ยวกับเรา";
+          break;
+        default:
+          this.pageTitle = "";
+          break;
+      }
+    },
+    getBMenus() {
+      if (this.IS_AUTHENTICATED) {
+        this.bMenus = [
+          {
+            id: "1",
+            title: "เข้าสู่ระบบ",
+            icon: "mdi-login",
+            class:
+              "d-flex flex ml-sm-1 ml-md-auto ml-lg-auto ml-xl-auto mr-0 my-1 py-1 align-center text-center medium",
+            route: "/login"
+          },
+          {
+            id: "2",
+            title: "สมัครสมาชิก",
+            icon: "mdi-account-plus",
+            class: "d-flex flex mx-0 my-1 py-1 align-center text-center medium",
+            route: "/register"
+          },
+          {
+            id: "3",
+            title: "แจ้งโอน",
+            icon: "mdi-hand-coin",
+            class: "d-flex flex mx-0 my-1 py-1 align-center text-center medium",
+            route: "/new-order"
+          },
+          {
+            id: "4",
+            title: "ติดต่อเรา",
+            icon: "mdi-account-box",
+            class:
+              "d-flex flex ml-0 mr-sm-1 mr-md-auto mr-lg-auto mr-xl-auto my-1 py-1 align-center text-center medium",
+            route: "/contact"
+          }
+        ];
+      } else if (!this.IS_AUTHENTICATED) {
+        this.bMenus = [
+          {
+            id: "5",
+            title: "ศูนย์สมาชิก",
+            icon: "mdi-account",
+            class:
+              "d-flex flex ml-sm-1 ml-md-auto ml-lg-auto ml-xl-auto mr-0 my-1 py-1 align-center text-center medium",
+            route: "users"
+          },
+          {
+            id: "6",
+            title: "แจ้งโอน",
+            icon: "mdi-hand-coin",
+            class: "d-flex flex mx-0 my-1 py-1 align-center text-center medium",
+            route: "/new-order"
+          },
+          {
+            id: "7",
+            title: "ประวัติ",
+            icon: "mdi-history",
+            class: "d-flex flex mx-0 my-1 py-1 align-center text-center medium",
+            route: "/orders"
+          },
+          {
+            id: "8",
+            title: "ติดต่อเรา",
+            icon: "mdi-account-box",
+            class:
+              "d-flex flex ml-0 mr-sm-1 mr-md-auto mr-lg-auto mr-xl-auto my-1 py-1 align-center text-center medium",
+            route: "/contact"
+          }
+        ];
+      }
+    },
     goBack() {
       this.$router.back();
     },
-    async logout() {
-      await auth.signOut();
-      await this.$store.dispatch("sessionLogout");
-      await this.$store.dispatch("SET_SESSION_COOKIE", { idToken: null });
-      this.$store.commit("SET_UID", null);
-      await this.$router.replace("/");
+    logout() {
+      this.$router.replace("/");
     }
   }
 };

@@ -10,7 +10,7 @@
       align="center"
     >
       <v-card light elevation="0" color="transparent">
-        <v-card-text class="transparent" style="height: 46px"></v-card-text>
+        <v-card-text class="transparent" style="height: 60px"></v-card-text>
         <v-card-title class="large t-light">
           <v-spacer />
           ศูนย์สมาชิก
@@ -204,8 +204,8 @@
 </template>
 
 <script>
-import CustomFooter from "../../components/CustomFooter.vue";
-import { userData } from "../../utils/datas";
+import CustomFooter from "../components/CustomFooter.vue";
+import { userData } from "../utils/datas";
 
 export default {
   name: "Users",
@@ -236,7 +236,7 @@ export default {
     return {
       title: 'ศูนย์สมาชิกก',
       link: [
-        { rel: 'favicon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     };
   },
@@ -269,10 +269,6 @@ export default {
   methods: {
     refresh () {
       this.$nuxt.refresh();
-    }
-  }
-};
-</script>
     }
   }
 };

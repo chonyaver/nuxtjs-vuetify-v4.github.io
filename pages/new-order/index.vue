@@ -10,15 +10,7 @@
       class="px-1 py-2"
     >
       <v-card light elevation="0" color="transparent">
-        <v-card-text class="transparent" style="height: 65px"></v-card-text>
-        <v-card-title class="large t-light">
-          <v-spacer />
-          แจ้งโอน
-          <span v-if="subtitle" class="large t-light"
-            >&nbsp; &rArr; &nbsp; {{ subtitle }}</span
-          >
-          <v-spacer />
-        </v-card-title>
+        <v-card-text class="transparent" style="height: 100px"></v-card-text>
         <v-card-text v-if="flow1 === true" class="py-2 align-center">
           <v-spacer />
           <v-card

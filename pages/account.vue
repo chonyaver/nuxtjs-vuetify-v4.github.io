@@ -444,7 +444,7 @@ export default {
     return {
       title: 'บัญชีของฉัน',
       link: [
-        { rel: 'favicon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     };
   },
@@ -522,8 +522,8 @@ export default {
     refresh () {
       this.$nuxt.refresh();
     },
-    onScroll(event) {
-      const scrollTarget = event.target.scrollTarget.scrollTop;
+    onScroll(e) {
+      const scrollTarget = e.target.scrollTarget.scrollTop;
       if (scrollTarget > 100) {
         this.goTop = true;
       } else if (scrollTarget <= 100) {
