@@ -76,11 +76,11 @@ module.exports = {
   ],
 
   axios: {
-    baseURL: process.env.BASE_URL
+    baseURL: process.env.BASE_URL || "https://7ztqrh-3000.csb.app"
   },
 
   env: {
-    BASE_URL: process.env.BASE_URL,
+    BASE_URL: process.env.BASE_URL || "https://7ztqrh-3000.csb.app",
     FB_API_KEY: process.env.FB_API_KEY,
     FB_AUTH_DOMAIN: process.env.FB_AUTH_DOMAIN,
     FB_RTDB_URL: process.env.FB_RTDB_URL,

@@ -261,7 +261,6 @@
       >
         {{ sccMsg }}
       </v-snackbar>
-      <custom-header :title="title" />
       <v-overlay
         :value="loading"
         color="ghostwhite"
@@ -284,15 +283,10 @@
 </template>
 
 <script>
-import CustomHeader from '~/components/CustomHeader.vue';
 import { getPassStatus, getPhoneStatus, getDate, lastPass } from "~/utils/utils";
 
 export default {
   name: "AccountPage",
-
-  components: {
-    CustomHeader
-  },
   
   layout: 'simple',
 

@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <!-- Side menu. -->
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -78,13 +77,13 @@
         </div>
       </template>
     </v-navigation-drawer>
-    <!-- Content -->
-    <v-main class="bg-white">
+
+    <v-main class="bg-animate-light" fill-height>
       <v-container fluid>
         <Nuxt />
         <v-speed-dial
           v-model="fab"
-          class="absolute-right"
+          class="top-right mr-0"
           :direction="direction"
           :transition="transition"
         >
@@ -92,17 +91,18 @@
             <v-btn
               v-model="fab"
               color="transparent"
-              class="d-flex flex rounded-r-0 align-center text-center grad4 text-button"
-              max-width="58px"
-              height="44px"
+              elevation="0"
+              class="d-flex flex rounded-r-0 align-center text-center mr-0 grad4 t-white medium"
               dark
-              link
+              small
+              max-width="54px"
+              height="38px"
             >
               <v-icon v-if="fab">
                 mdi-close
               </v-icon>
-              <span v-else class="text-button t-white t-shadow">
-                ติดต่อ
+              <span v-else class="t-white medium t-shadow">
+                แชท
               </span>
             </v-btn>
           </template>
@@ -115,6 +115,7 @@
             fab
             small
             :href="speedItem.link"
+            target="_blank"
           >
             <v-icon>
               {{ speedItem.icon }}
@@ -123,49 +124,46 @@
         </v-speed-dial>
       </v-container>
     </v-main>
-    <!-- Bottom menu. -->
+
     <v-card
       app
       dark
-      class="grad10 bottom pa-1"
+      elevation="12"
+      class="bottom grad10 pa-1"
       width="100%"
       height="auto"
-      elevation="15"
       tile
     >
       <v-card-actions
-        class="d-flex align-center justify-center text-center py-0 px-sm-1 px-md-2 px-lg-3 px-xl-3 transparent mx-1"
+        class="d-flex px-1 py-0 justify-center align-center text-center transparent"
       >
         <v-spacer />
         <v-btn
           v-for="bMenu in bMenus"
           :key="bMenu.id"
           color="transparent"
-          :class="bMenu.class"
           :title="bMenu.title"
+          :class="bMenu.class"
           width="auto"
-          :height="$vuetify.breakpoint.smAndDown ? '55px' : '60px'"
-          elevation="0"
+          :height="$vuetify.breakpoint.smAndDown ? '50px' : '55px'"
           dark
+          depressed
           link
-          router
+          nuxt
           :to="bMenu.route"
         >
           <span
-            class="d-block ma-auto pa-2 justify-center align-center text-center medium t-white"
+            class="d-block ma-auto px-sm-1 px-md-2 px-lg-3 px-xl-4 py-2 align-center text-center t-white medium"
           >
-            <v-icon
-              class="t-white mx-auto mb-1"
-              :small="$vuetify.breakpoint.smAndDown"
-            >
+            <v-icon class="mx-auto mb-1" :small="$vuetify.breakpoint.smAndDown">
               {{ bMenu.icon }}
             </v-icon>
             <br />
             {{ bMenu.title }}
             <span
               v-if="bMenu.id === '5' && newCount > 0"
-              class="d-flex pa-1 red small white--text align-center text-center"
-              style="position: absolute; top: 3.5px; left: 51%; width: auto; height: auto; max-height: 18px; border-radius: 50%"
+              class="d-flex flex align-center text-center pa-1 red t-white small"
+              style="position: absolute; top: 3px; left: 51.5%; border-radius: 50%; width: auto; height: auto; max-height: 18px"
             >
               {{ newCount }}
             </span>
@@ -174,67 +172,82 @@
         <v-spacer />
       </v-card-actions>
     </v-card>
-    <!-- Top menu. -->
+
     <v-card
       app
       dark
-      class="top grad11 pa-1"
-      elevation="12"
+      elevation="15"
+      class="top grad11 py-0 px-0"
       width="100%"
       height="auto"
       tile
     >
-      <v-app-bar
-        dark
-        tile
-        dense
-        color="transparent"
-        elevation="0"
-        class="px-0 py-1 align-start"
-      >
-        <v-app-bar-nav-icon
-          x-small
-          class="ml-0 mt-0 mb-auto mr-auto"
-          @click.stop="drawer = !drawer"
-        />
-        <v-spacer />
-        <div class="mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5"></div>
-        <v-toolbar-title
-          class="d-flex flex px-2 py-1 mt-0 mb-1 mx-auto medium pointer"
-          style="width: auto; max-width: 150px"
-          @click="reload()"
-        >
-          <v-img alt="Logo svg" :src="logo" sizes="auto" class="ma-1"></v-img>
-        </v-toolbar-title>
-        <div class="mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5"></div>
-        <v-spacer />
-        <div class="mx-2"></div>
-      </v-app-bar>
       <v-card-actions
-        class="d-flex flex align-center justify-center text-center px-1 py-0 mt-0 mb-1 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5 grad9 shadow"
+        class="d-flex transparent px-0 py-0 justify-center align-center text-center"
+      >
+        <v-btn
+          color="transparent"
+          class="d-flex flex rounded-l-0 ml-0 mr-auto align-center text-center grad3 t-white t-shadow medium"
+          max-width="54px"
+          height="38px"
+          dark
+          elevation="0"
+          small
+          @click.stop="drawer = !drawer"
+        >
+          <v-app-bar-nav-icon x-small />
+        </v-btn>
+        <div class="mx-3"></div>
+        <v-spacer />
+        <nuxt-link
+          class="d-flex mx-auto my-1 py-1 px-2 align-center text-center transparent pointer"
+          to="/"
+          style="width: auto; max-width: 150px"
+        >
+          <v-img
+            src="https://res.cloudinary.com/dckrvb0rw/image/upload/v1688924150/public/svg/logo2_wemlba.svg"
+            alt="Logo"
+            class="ma-1"
+            width="auto"
+            max-height="28px"
+          ></v-img>
+        </nuxt-link>
+        <v-spacer />
+        <div class="mx-3"></div>
+        <v-btn
+          color="transparent"
+          class="d-flex flex rounded-l-0 mr-0 ml-auto align-center text-center medium transparent"
+          max-width="54px"
+          height="38px"
+          dark
+          elevation="0"
+          small
+        >
+          <v-app-bar-nav-icon x-small class="t-transparent transparent" />
+        </v-btn>
+      </v-card-actions>
+      <v-card-actions
+        class="d-flex px-0 py-0 mt-1 grad9 justify-center align-center text-center"
       >
         <v-spacer />
         <v-btn
           v-for="(mItem, i) in mItems"
           :key="i"
-          :class="mItem.class"
-          :title="mItem.title"
           color="transparent"
+          :class="mItem.class"
           width="auto"
-          :height="$vuetify.breakpoint.smAndDown ? '55px' : '60px'"
+          :height="$vuetify.breakpoint.smAndDown ? '48px' : '53px'"
+          :title="mItem.title"
           dark
           depressed
           link
-          router
+          nuxt
           :to="mItem.route"
         >
           <span
-            class="d-block ma-auto pa-2 justify-center align-center text-center t-white medium"
+            class="d-block ma-auto px-sm-1 px-md-2 px-lg-3 px-xl-4 py-2 justify-center align-center text-center t-white medium"
           >
-            <v-icon
-              class="t-white mx-auto mb-1"
-              :small="$vuetify.breakpoint.smAndDown"
-            >
+            <v-icon :small="$vuetify.breakpoint.smAndDown" class="mx-auto mb-1">
               {{ mItem.icon }}
             </v-icon>
             <br />
@@ -250,11 +263,11 @@
 <style>
 @font-face {
   src: url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900");
-  font-family: "Roboto", "sans-serif";
+  font-family: "Roboto", sans-serif;
   font-feature-settings: normal;
   -moz-font-feature-settings: normal;
   -webkit-font-feature-settings: normal;
-  -o-font-feature-settings: normal;
+  -moz-font-feature-settings: normal;
 }
 
 /* Globals */
@@ -268,7 +281,7 @@ html,
 body,
 template {
   line-height: 1.5;
-  font-family: "Roboto", monospace;
+  font-family: "Roboto", sans-serif;
   font-size: 0.875rem;
   font-weight: 300;
   letter-spacing: 0.0178571429em;
@@ -278,9 +291,7 @@ template {
   font-feature-settings: normal;
   -moz-font-feature-settings: normal;
   -webkit-font-feature-settings: normal;
-  -o-font-feature-settings: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: normal;
 }
 
 *[dark],
@@ -343,7 +354,6 @@ template {
   position: fixed;
   bottom: 60px;
   right: 5px;
-  z-index: 1;
 }
 
 .pointer {
@@ -358,169 +368,163 @@ nuxt-link {
     "Droid Sans Mono", monospace, monospace;
 }
 
-::placeholder,
-[label],
-[value],
-input,
-input[label],
-input::placeholder,
-v-text-field,
-v-text-field::placeholder,
-v-text-field::-ms-value,
-v-text-field[label],
-v-text-field[value],
-v-text-field[option],
-v-text-field::after,
-v-text-field:below-level,
-v-autocomplete,
-v-autocomplete[label],
-v-autocomplete::after,
-v-autocomplete::selection,
-v-autocomplete::placeholder,
-v-autocomplete:below-level,
-v-file-input,
-v-file-input[label],
-v-file-input[value],
-v-file-input::-ms-value,
-v-file-input::after,
-v-file-input::placeholder,
-v-file-input:below-level {
-  font-size: 0.7765456789rem;
-  align-items: center;
-  text-align: center;
-  text-justify: auto;
-}
-
+/* Background and buttons. */
 .bg4 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687439353/public/svg/bg4_f33lc3.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687439353/public/svg/bg4_f33lc3.svg")
-    repeat-x center top;
+  background-repeat: repeat-x;
+  background-position: center top;
 }
 
 .bg6 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689237872/public/svg/bg6.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689237872/public/svg/bg6.svg")
-    repeat-x left top;
+  background-repeat: repeat-x;
+  background-position: left top;
 }
 
 .bg8 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1690097207/public/svg/bg8_vbrp61.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1690097207/public/svg/bg8_vbrp61.svg")
-    repeat-x center top;
+  background-repeat: repeat-x;
+  background-position: center top;
 }
 
 .bg9 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689159993/public/svg/bg9.svg");
   background-size: contain;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689159993/public/svg/bg9.svg")
-    repeat-x left top;
+  background-repeat: repeat-x;
+  background-position: left top;
 }
 
 .bg11 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1690051131/public/svg/bg11_vnhmuu.svg");
   background-size: contain;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1690051131/public/svg/bg11_vnhmuu.svg")
-    repeat-x left top;
+  background-repeat: repeat-x;
+  background-position: left top;
 }
 
 .bg12 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1690051131/public/svg/bg12_wnd2zl.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1690051131/public/svg/bg12_wnd2zl.svg")
-    repeat-x left top;
+  background-repeat: repeat-x;
+  background-position: left top;
 }
 
 .bg13 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689256266/public/svg/bg13.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689256266/public/svg/bg13.svg")
-    no-repeat center center;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .bg10-2 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689160831/public/svg/bg10-2.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689160831/public/svg/bg10-2.svg")
-    no-repeat center center;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .background {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689237872/public/svg/background.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689237872/public/svg/background.svg")
-    no-repeat fixed center top;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
 }
 
 .bg-animate {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1691534265/public/svg/bg-animate.svg");
   background-size: 100% 100%;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1691534265/public/svg/bg-animate.svg")
-    no-repeat fixed center center;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .bg-animate-light {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1692065766/public/svg/bg-animate-light_jximlj.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1692065766/public/svg/bg-animate-light_jximlj.svg")
-    no-repeat fixed center top;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
 }
 
 .bg-animate3 {
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1692064592/public/svg/bg-animate2.svg")
-    no-repeat fixed center top;
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1692064592/public/svg/bg-animate2.svg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
 }
 
 .bg-dialog {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1688640542/public/web/bg300-44_grzih3.jpg");
   background-size: 100% 100%;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1688640542/public/web/bg300-44_grzih3.jpg")
-    no-repeat left top;
+  background-repeat: no-repeat;
+  background-position: left top;
 }
 
 .bg-dialog1 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1690787838/public/web/LINE_P20190113_154935282_5_nc3gyj.jpg");
   background-size: 100% 100%;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1690787838/public/web/LINE_P20190113_154935282_5_nc3gyj.jpg")
-    no-repeat center top;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .btn-left2 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687439354/public/svg/btn-left2.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687439354/public/svg/btn-left2.svg")
-    no-repeat center left;
+  background-repeat: no-repeat;
+  background-position: center left;
 }
 
 .btn-right2 {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687439203/public/svg/btn-right2.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687439203/public/svg/btn-right2.svg")
-    no-repeat right center;
+  background-repeat: no-repeat;
+  background-position: right center;
 }
 
 .btn3 {
+  background: linear-gradient(0deg, #8e0369ff, #5b1038ff);
   background-size: cover;
-  background: linear-gradient(0deg, #8e0369ff, #5b1038ff) no-repeat center
-    center;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .blue-pp {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687785741/public/svg/blue-pp_etvuhf.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687785741/public/svg/blue-pp_etvuhf.svg")
-    no-repeat center top;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .blue-wm {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687785741/public/svg/blue-wm_mo344u.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687785741/public/svg/blue-wm_mo344u.svg")
-    no-repeat center top;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .red-pm {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687785741/public/svg/red-pm_tgtw2v.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687785741/public/svg/red-pm_tgtw2v.svg")
-    no-repeat center top;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .green-nt {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687785741/public/svg/green-nt_zbmo4x.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687785741/public/svg/green-nt_zbmo4x.svg")
-    no-repeat center top;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .purple-sk {
+  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687785741/public/svg/purple-sk_qvoroy.svg");
   background-size: cover;
-  background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687785741/public/svg/purple-sk_qvoroy.svg")
-    no-repeat center top;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .btn-line {
@@ -568,58 +572,73 @@ v-file-input:below-level {
 }
 
 .grad1 {
+  background: linear-gradient(180deg, #ffffff, #e1a5d1);
   background-size: 100% 100%;
-  background: linear-gradient(180deg, #ffffff, #e1a5d1) center top;
+  background-position: center top;
 }
 
 .grad2 {
+  background: linear-gradient(180deg, #e002a5, #982278);
   background-size: 100% 100%;
-  background: linear-gradient(180deg, #e002a5, #982278) center top;
+  background-position: center top;
 }
 
 .grad3 {
+  background: linear-gradient(270deg, #e1a5d11a, #e002a5);
   background-size: 100% 100%;
-  background: linear-gradient(270deg, #e1a5d11a, #e002a5) left center;
+  background-position: left center;
 }
 
 .grad4 {
+  background: linear-gradient(90deg, #e1a5d11a, #e002a5);
   background-size: 100% 100%;
-  background: linear-gradient(90deg, #e1a5d11a, #e002a5) right center;
+  background-position: right center;
 }
 
 .grad5 {
+  background: radial-gradient(at top, #e1a5d1, #88286e);
   background-size: 100% 100%;
-  background: radial-gradient(at top, #e1a5d1, #88286e) center top;
+  background-position: center top;
 }
 
 .grad6 {
+  background: radial-gradient(#e002a5, #e1a5d1);
   background-size: 100% 100%;
-  background: radial-gradient(#e002a5, #e1a5d1) center center;
+  background-position: center center;
 }
 
 .grad7 {
+  background: linear-gradient(0deg, #521943c0, #932c77c2);
   background-size: 100% 100%;
-  background: linear-gradient(0deg, #521943c0, #932c77c2) center top;
+  background-position: center top;
 }
 
 .grad8 {
+  background: linear-gradient(0deg, #f700b6, #88286e);
   background-size: 100% 100%;
-  background: linear-gradient(0deg, #f700b6, #88286e) no-repeat center top;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .grad9 {
+  background: linear-gradient(180deg, #f700b6, #88286e);
   background-size: 100% 100%;
-  background: linear-gradient(180deg, #f700b6, #88286e) no-repeat center top;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 .grad10 {
+  background: linear-gradient(180deg, #db2bad, #2c0b25);
   background-size: 100% 100%;
-  background: linear-gradient(180deg, #db2bad, #2c0b25) repeat-x center bottom;
+  background-repeat: repeat-x;
+  background-position: center bottom;
 }
 
 .grad11 {
+  background: linear-gradient(0deg, #db2bad, #2c0b25);
   background-size: 100% 100%;
-  background: linear-gradient(0deg, #db2bad, #2c0b25) no-repeat center top;
+  background-position: center top;
+  background-repeat: no-repeat;
 }
 
 .logo-compact2 {
@@ -630,24 +649,52 @@ v-file-input:below-level {
 }
 
 .btn1 {
+  background: radial-gradient(at center, #ffffff, ghostwhite);
   background-size: 100% 100%;
-  background: radial-gradient(at center, #ffffff, ghostwhite) no-repeat center
-    center;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .btn2 {
+  background: radial-gradient(at center, #521943, #932c77);
   background-size: 100% 100%;
-  background: radial-gradient(at center, #521943, #932c77) no-repeat center
-    center;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .btn2-2 {
+  background: radial-gradient(at center, #521943c0, #932c77c2);
   background-size: 100% 100%;
-  background: radial-gradient(at center, #521943c0, #932c77c2) no-repeat center
-    center;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
-/* Text and Borders */
+.grad-pp {
+  background-size: 100% 100%;
+  background: radial-gradient(#0072b5, #001925);
+}
+
+.grad-wm {
+  background-size: 100% 100%;
+  background: radial-gradient(#34568b, #011138);
+}
+
+.grad-pm {
+  background-size: 100% 100%;
+  background: radial-gradient(#dd2512, #910231);
+}
+
+.grad-nt {
+  background-size: 100% 100%;
+  background: radial-gradient(#008000, #0b3e01);
+}
+
+.grad-sk {
+  background-size: 100% 100%;
+  background: radial-gradient(#d2386c, #81134d);
+}
+
+/* Text and borders. */
 .t-transparent {
   color: transparent !important;
 }
@@ -916,29 +963,37 @@ v-file-input:below-level {
   border-left: 1px double #f700b6 !important;
 }
 
-.grad-pp {
-  background-size: 100% 100%;
-  background: radial-gradient(#0072b5, #001925);
-}
-
-.grad-wm {
-  background-size: 100% 100%;
-  background: radial-gradient(#34568b, #011138);
-}
-
-.grad-pm {
-  background-size: 100% 100%;
-  background: radial-gradient(#dd2512, #910231);
-}
-
-.grad-nt {
-  background-size: 100% 100%;
-  background: radial-gradient(#008000, #0b3e01);
-}
-
-.grad-sk {
-  background-size: 100% 100%;
-  background: radial-gradient(#d2386c, #81134d);
+::placeholder,
+[label],
+[value],
+input,
+input[label],
+input::placeholder,
+v-text-field,
+v-text-field::placeholder,
+v-text-field::-ms-value,
+v-text-field[label],
+v-text-field[value],
+v-text-field[option],
+v-text-field::after,
+v-text-field:below-level,
+v-autocomplete,
+v-autocomplete[label],
+v-autocomplete::after,
+v-autocomplete::selection,
+v-autocomplete::placeholder,
+v-autocomplete:below-level,
+v-file-input,
+v-file-input[label],
+v-file-input[value],
+v-file-input::-ms-value,
+v-file-input::after,
+v-file-input::placeholder,
+v-file-input:below-level {
+  font-size: 0.7765456789rem;
+  align-items: center;
+  text-align: center;
+  text-justify: auto;
 }
 
 @media screen and (max-width: 900px) {
@@ -1001,8 +1056,6 @@ export default {
   data() {
     return {
       drawer: true,
-      logo:
-        "https://res.cloudinary.com/dckrvb0rw/image/upload/v1688924150/public/svg/logo2_wemlba.svg",
       items: [
         { title: "หน้าหลัก", to: "/" },
         { title: "เกี่ยวกับเรา", to: "/about" },

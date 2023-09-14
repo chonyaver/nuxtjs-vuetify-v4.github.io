@@ -10,12 +10,7 @@
       align="center"
     >
       <v-card light elevation="0" color="transparent">
-        <v-card-text class="transparent" style="height: 60px"></v-card-text>
-        <v-card-title class="large t-light">
-          <v-spacer />
-          ศูนย์สมาชิก
-          <v-spacer />
-        </v-card-title>
+        <v-card-text class="transparent" style="height: 100px"></v-card-text>
         <v-card-text class="align-center py-2">
           <v-spacer />
           <v-card

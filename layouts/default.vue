@@ -149,7 +149,7 @@
           dark
           depressed
           link
-          router
+          nuxt
           :to="bMenu.route"
         >
           <span
@@ -213,18 +213,18 @@
         <div class="mx-3"></div>
         <v-btn
           color="transparent"
-          class="d-flex flex rounded-l-0 mr-0 ml-auto align-center text-center medium"
+          class="d-flex flex rounded-l-0 mr-0 ml-auto align-center text-center medium transparent"
           max-width="54px"
           height="38px"
           dark
           elevation="0"
           small
         >
-          <v-app-bar-nav-icon x-small class="t-transparent" />
+          <v-app-bar-nav-icon x-small class="t-transparent transparent" />
         </v-btn>
       </v-card-actions>
       <v-card-actions
-        class="d-flex px-0 py-0 grad9 justify-center align-center text-center"
+        class="d-flex px-0 py-0 mt-1 grad9 justify-center align-center text-center"
       >
         <v-spacer />
         <v-btn
@@ -238,7 +238,7 @@
           dark
           depressed
           link
-          router
+          nuxt
           :to="mItem.route"
         >
           <span
@@ -260,9 +260,11 @@
 <style>
 @font-face {
   src: url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900");
-  font-family: "Roboto", "sans-serif";
+  font-family: "Roboto", sans-serif;
+  font-feature-settings: normal;
   -moz-font-feature-settings: normal;
   -webkit-font-feature-settings: normal;
+  -moz-font-feature-settings: normal;
 }
 
 /* Globals */
@@ -275,6 +277,7 @@ html {
 html,
 body,
 template {
+  line-height: 1.5;
   font-family: "Roboto", sans-serif;
   font-size: 0.875rem;
   font-weight: 300;
@@ -282,10 +285,10 @@ template {
   word-spacing: normal;
   word-wrap: break-word;
   font-size-adjust: none;
-  line-height: 1.5;
   font-feature-settings: normal;
   -moz-font-feature-settings: normal;
   -webkit-font-feature-settings: normal;
+  -moz-font-feature-settings: normal;
 }
 
 *[dark],
@@ -362,39 +365,7 @@ nuxt-link {
     "Droid Sans Mono", monospace, monospace;
 }
 
-::placeholder,
-[label],
-[value],
-input,
-input[label],
-input::placeholder,
-v-text-field,
-v-text-field::placeholder,
-v-text-field::-ms-value,
-v-text-field[label],
-v-text-field[value],
-v-text-field[option],
-v-text-field::after,
-v-text-field:below-level,
-v-autocomplete,
-v-autocomplete[label],
-v-autocomplete::after,
-v-autocomplete::selection,
-v-autocomplete::placeholder,
-v-autocomplete:below-level,
-v-file-input,
-v-file-input[label],
-v-file-input[value],
-v-file-input::-ms-value,
-v-file-input::after,
-v-file-input::placeholder,
-v-file-input:below-level {
-  font-size: 0.7765456789rem;
-  align-items: center;
-  text-align: center;
-  text-justify: auto;
-}
-
+/* Background and buttons. */
 .bg4 {
   background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687439353/public/svg/bg4_f33lc3.svg");
   background-size: cover;
@@ -446,13 +417,6 @@ v-file-input:below-level {
 
 .bg10-2 {
   background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1689160831/public/svg/bg10-2.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-.btn3 {
-  background: linear-gradient(180deg, #8e0369ff, #5b1038ff);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -516,6 +480,13 @@ v-file-input:below-level {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: right center;
+}
+
+.btn3 {
+  background: linear-gradient(0deg, #8e0369ff, #5b1038ff);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .blue-pp {
@@ -695,7 +666,32 @@ v-file-input:below-level {
   background-position: center center;
 }
 
-/* Text and Borde */
+.grad-pp {
+  background-size: 100% 100%;
+  background: radial-gradient(#0072b5, #001925);
+}
+
+.grad-wm {
+  background-size: 100% 100%;
+  background: radial-gradient(#34568b, #011138);
+}
+
+.grad-pm {
+  background-size: 100% 100%;
+  background: radial-gradient(#dd2512, #910231);
+}
+
+.grad-nt {
+  background-size: 100% 100%;
+  background: radial-gradient(#008000, #0b3e01);
+}
+
+.grad-sk {
+  background-size: 100% 100%;
+  background: radial-gradient(#d2386c, #81134d);
+}
+
+/* Text and borders. */
 .t-transparent {
   color: transparent !important;
 }
@@ -964,29 +960,37 @@ v-file-input:below-level {
   border-left: 1px double #f700b6 !important;
 }
 
-.grad-pp {
-  background-size: 100% 100%;
-  background: radial-gradient(#0072b5, #001925);
-}
-
-.grad-wm {
-  background-size: 100% 100%;
-  background: radial-gradient(#34568b, #011138);
-}
-
-.grad-pm {
-  background-size: 100% 100%;
-  background: radial-gradient(#dd2512, #910231);
-}
-
-.grad-nt {
-  background-size: 100% 100%;
-  background: radial-gradient(#008000, #0b3e01);
-}
-
-.grad-sk {
-  background-size: 100% 100%;
-  background: radial-gradient(#d2386c, #81134d);
+::placeholder,
+[label],
+[value],
+input,
+input[label],
+input::placeholder,
+v-text-field,
+v-text-field::placeholder,
+v-text-field::-ms-value,
+v-text-field[label],
+v-text-field[value],
+v-text-field[option],
+v-text-field::after,
+v-text-field:below-level,
+v-autocomplete,
+v-autocomplete[label],
+v-autocomplete::after,
+v-autocomplete::selection,
+v-autocomplete::placeholder,
+v-autocomplete:below-level,
+v-file-input,
+v-file-input[label],
+v-file-input[value],
+v-file-input::-ms-value,
+v-file-input::after,
+v-file-input::placeholder,
+v-file-input:below-level {
+  font-size: 0.7765456789rem;
+  align-items: center;
+  text-align: center;
+  text-justify: auto;
 }
 
 @media screen and (max-width: 900px) {

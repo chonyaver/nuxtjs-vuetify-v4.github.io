@@ -3,19 +3,114 @@
     <v-main class="bg-animate3">
       <v-container fluid>
         <Nuxt />
+        <v-speed-dial
+          v-model="fab"
+          class="absolute-left ml-0"
+          :transition="transition"
+          :direction="direction"
+        >
+          <template #activator>
+            <v-btn
+              v-model="fab"
+              color="transparent"
+              class="grad3 align-center text-center t-shadow t-white medium"
+              dark
+              fab
+              small
+            >
+              <v-icon v-if="fab">
+                mdi-close
+              </v-icon>
+              <span v-else class="t-white t-shadow medium">
+                แชท
+              </span>
+            </v-btn>
+          </template>
+          <v-btn
+            v-for="speedItem in speedItems"
+            :key="speedItem.title"
+            :color="speedItem.color"
+            :href="speedItem.link"
+            :title="speedItem.title"
+            dark
+            fab
+            small
+          >
+            <v-icon>
+              {{ speedItem.icon }}
+            </v-icon>
+          </v-btn>
+        </v-speed-dial>
       </v-container>
     </v-main>
+
+    <v-card
+      dark
+      elevation="15"
+      class="top background px-0 py-0"
+      width="100%"
+      height="auto"
+      tile
+    >
+      <v-card-actions
+        class="d-flex transparent px-0 py-0 justify-center align-center text-center"
+      >
+        <v-btn
+          color="transparent"
+          class="d-flex flex rounded-l-0 ml-0 mr-auto align-center text-center grad3 t-white t-shadow medium"
+          max-width="54px"
+          height="38px"
+          dark
+          elevation="0"
+          small
+          @click="goBack()"
+        >
+          <v-icon :small="$vuetify.breakpoint.smAndDown">
+            mdi-chevron-left
+          </v-icon>
+        </v-btn>
+        <div class="mx-3"></div>
+        <v-spacer />
+        <v-btn
+          color="white"
+          class="d-flex flex mx-auto my-1 py-1 px-2 align-center text-center large"
+          dark
+          text
+          depressed
+          small
+        >
+          {{ pageTitle }}
+        </v-btn>
+        <v-spacer />
+        <div class="mx-3"></div>
+        <v-btn
+          color="transparent"
+          class="d-flex flex rounded-l-0 mr-0 ml-auto align-center text-center medium grad4 t-white t-shadow"
+          max-width="54px"
+          height="38px"
+          dark
+          elevation="0"
+          small
+          nuxt
+          to="/"
+        >
+          <v-icon :small="$vuetify.breakpoint.smAndDown">
+            mdi-home
+          </v-icon>
+        </v-btn>
+      </v-card-actions>
+    </v-card>
   </v-app>
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900");
-
 @font-face {
   src: url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900");
-  font-family: "Roboto", "sans-serif";
+  font-family: "Roboto", sans-serif;
+  font-feature-settings: normal;
   -moz-font-feature-settings: normal;
   -webkit-font-feature-settings: normal;
+  -moz-font-feature-settings: normal;
 }
 
 /* Globals */
@@ -28,6 +123,7 @@ html {
 html,
 body,
 template {
+  line-height: 1.5;
   font-family: "Roboto", sans-serif;
   font-size: 0.875rem;
   font-weight: 300;
@@ -35,10 +131,10 @@ template {
   word-spacing: normal;
   word-wrap: break-word;
   font-size-adjust: none;
-  line-height: 1.5;
   font-feature-settings: normal;
   -moz-font-feature-settings: normal;
   -webkit-font-feature-settings: normal;
+  -moz-font-feature-settings: normal;
 }
 
 *[dark],
@@ -115,39 +211,7 @@ nuxt-link {
     "Droid Sans Mono", monospace, monospace;
 }
 
-::placeholder,
-[label],
-[value],
-input,
-input[label],
-input::placeholder,
-v-text-field,
-v-text-field::placeholder,
-v-text-field::-ms-value,
-v-text-field[label],
-v-text-field[value],
-v-text-field[option],
-v-text-field::after,
-v-text-field:below-level,
-v-autocomplete,
-v-autocomplete[label],
-v-autocomplete::after,
-v-autocomplete::selection,
-v-autocomplete::placeholder,
-v-autocomplete:below-level,
-v-file-input,
-v-file-input[label],
-v-file-input[value],
-v-file-input::-ms-value,
-v-file-input::after,
-v-file-input::placeholder,
-v-file-input:below-level {
-  font-size: 0.7765456789rem;
-  align-items: center;
-  text-align: center;
-  text-justify: auto;
-}
-
+/* Background and buttons. */
 .bg4 {
   background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1687439353/public/svg/bg4_f33lc3.svg");
   background-size: cover;
@@ -178,7 +242,7 @@ v-file-input:below-level {
 
 .bg11 {
   background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1690051131/public/svg/bg11_vnhmuu.svg");
-  background-size: contain 66px;
+  background-size: contain;
   background-repeat: repeat-x;
   background-position: left top;
 }
@@ -265,7 +329,7 @@ v-file-input:below-level {
 }
 
 .btn3 {
-  background: linear-gradient(180deg, #8e0369ff, #5b1038ff);
+  background: linear-gradient(0deg, #8e0369ff, #5b1038ff);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -357,7 +421,7 @@ v-file-input:below-level {
 }
 
 .grad2 {
-  background: linear-gradient(180, #e002a5, #982278);
+  background: linear-gradient(180deg, #e002a5, #982278);
   background-size: 100% 100%;
   background-position: center top;
 }
@@ -448,7 +512,32 @@ v-file-input:below-level {
   background-position: center center;
 }
 
-/* Text and Borde */
+.grad-pp {
+  background-size: 100% 100%;
+  background: radial-gradient(#0072b5, #001925);
+}
+
+.grad-wm {
+  background-size: 100% 100%;
+  background: radial-gradient(#34568b, #011138);
+}
+
+.grad-pm {
+  background-size: 100% 100%;
+  background: radial-gradient(#dd2512, #910231);
+}
+
+.grad-nt {
+  background-size: 100% 100%;
+  background: radial-gradient(#008000, #0b3e01);
+}
+
+.grad-sk {
+  background-size: 100% 100%;
+  background: radial-gradient(#d2386c, #81134d);
+}
+
+/* Text and borders. */
 .t-transparent {
   color: transparent !important;
 }
@@ -717,29 +806,37 @@ v-file-input:below-level {
   border-left: 1px double #f700b6 !important;
 }
 
-.grad-pp {
-  background-size: 100% 100%;
-  background: radial-gradient(#0072b5, #001925);
-}
-
-.grad-wm {
-  background-size: 100% 100%;
-  background: radial-gradient(#34568b, #011138);
-}
-
-.grad-pm {
-  background-size: 100% 100%;
-  background: radial-gradient(#dd2512, #910231);
-}
-
-.grad-nt {
-  background-size: 100% 100%;
-  background: radial-gradient(#008000, #0b3e01);
-}
-
-.grad-sk {
-  background-size: 100% 100%;
-  background: radial-gradient(#d2386c, #81134d);
+::placeholder,
+[label],
+[value],
+input,
+input[label],
+input::placeholder,
+v-text-field,
+v-text-field::placeholder,
+v-text-field::-ms-value,
+v-text-field[label],
+v-text-field[value],
+v-text-field[option],
+v-text-field::after,
+v-text-field:below-level,
+v-autocomplete,
+v-autocomplete[label],
+v-autocomplete::after,
+v-autocomplete::selection,
+v-autocomplete::placeholder,
+v-autocomplete:below-level,
+v-file-input,
+v-file-input[label],
+v-file-input[value],
+v-file-input::-ms-value,
+v-file-input::after,
+v-file-input::placeholder,
+v-file-input:below-level {
+  font-size: 0.7765456789rem;
+  align-items: center;
+  text-align: center;
+  text-justify: auto;
 }
 
 @media screen and (max-width: 900px) {
@@ -772,13 +869,19 @@ export default {
   head() {
     return {
       meta: [
+        { charset: "utf-8" },
         {
           name: "viewport",
           content:
             "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
-        }
+        },
+        { hid: "description", name: "description", content: "" },
+        { name: "format-detection", content: "telephone=no" },
+        { httpEquiv: "X-UA-Compatible", content: "IE-edge" },
+        { httpEquiv: "X-UA-Compatible", content: "Chrome/100.0.0.0" }
       ],
       link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         {
           rel: "stylesheet",
           href:
@@ -798,12 +901,151 @@ export default {
     };
   },
 
+  data: () => {
+    return {
+      pageTitle: "",
+      fab: false,
+      direction: "bottom",
+      transition: "slide-y-reverse-transition",
+      speedItems: [
+        {
+          color: "success",
+          link: "#",
+          icon: "mdi-chat",
+          title: "ไลน์"
+        },
+        {
+          color: "#0072B5",
+          link: "#",
+          icon: "mdi-phone",
+          title: "โทรหาเรา"
+        },
+        {
+          color: "#004a75",
+          link: "#",
+          icon: "mdi-facebook-messenger",
+          title: "เฟสบุ๊ค เมสเซ็นเจอร์"
+        },
+        {
+          color: "green darken-1",
+          link: "#",
+          icon: "mdi-whatsapp",
+          title: "วอสแอป"
+        },
+        {
+          color: "blue darken-3",
+          link: "#",
+          icon: "mdi-twitter",
+          title: "ทวิทเตอร์"
+        },
+        {
+          color: "blown darken-3",
+          link: "#",
+          icon: "mdi-email",
+          title: "อีเมลล์"
+        }
+      ]
+    };
+  },
+
   computed: {
-    IS_AUTHENTICAATED() {
-      return this.$store.getters.IS_AUTHENTICAATED;
+    IS_AUTHENTICATED() {
+      return this.$store.getters.IS_AUTHENTICATED;
     },
     uid() {
       return this.$store.state.uid;
+    }
+  },
+
+  mounted() {
+    const name = this.$route.name;
+    this.getPageTitle(name);
+  },
+
+  methods: {
+    getPageTitle(name) {
+      switch (name) {
+        case "currencies-id":
+          const id = this.$route.params.id;
+          if (id === "currency01") {
+            this.pageTitle = "ดูอัตราแลกเปลี่ยน Paypal";
+          } else if (id === "currency02") {
+            this.pageTitle = "ดูอัตราแลกเปลี่ยน Web Money";
+          } else if (id === "currency03") {
+            this.pageTitle = "ดูอัตราแลกเปลี่ยน Perfect Money";
+          } else if (id === "currency04") {
+            this.pageTitle = "ดูอัตราแลกเปลี่ยน Neteller";
+          } else if (id === "currency05") {
+            this.pageTitle = "ดูอัตราแลกเปลี่ยน Skrill";
+          }
+          break;
+        case "messages":
+          this.pageTitle = "ข้อความ";
+          break;
+        case "new-order-create":
+          this.pageTitle = "แจ้งโอน";
+          break;
+        case "orders":
+          this.pageTitle = "ประวัติ";
+          break;
+        case "policies-refers":
+          this.pageTitle = "ข้อมูลอ้างอิง";
+          break;
+        case "policies-attrs":
+          this.pageTitle = "แหล่งที่มา";
+          break;
+        case "policies-privacy":
+          this.pageTitle = "นโยบายความเป็นส่วนตัว";
+          break;
+        case "policies-tac":
+          this.pageTitle = "ข้อกำหนดและเงื่อนไข";
+          break;
+        case "policies-tos":
+          this.pageTitle = "ข้อกำหนดในการให้บริการ";
+          break;
+        case "policies-tou":
+          this.pageTitle = "ข้อกำหนดในการใช้งาน";
+          break;
+        case "account":
+          this.pageTitle = "บัญชีของฉัน";
+          break;
+        case "bank":
+          this.pageTitle = "ธนาคาร";
+          break;
+        case "privacy-uid":
+          this.pageTitle = "ความเป็นส่วนตัว";
+          break;
+        case "calculator":
+          this.pageTitle = "เครื่องคำณวน";
+          break;
+        case "email-sign-up":
+          this.pageTitle = "สมัครด้วยอีเมลล์";
+          break;
+        case "phone-sign-up":
+          this.pageTitle = "สมัครดด้วยหมายเลขโทรศัพท์";
+          break;
+        case "line-sign-up":
+          this.pageTitle = "สมัครด้วยไลน์";
+          break;
+        case "line-add":
+          this.pageTitle = "เพิ่มเพื่อน";
+          break;
+        case "line-sign-in":
+          this.pageTitle = "เข้าสู่ระบบด้วยไลน์";
+          break;
+        case "update-email":
+          this.pageTitle = "เปลี่ยนอีเมลล์";
+          break;
+        case "update-password":
+          this.pageTitle = "เปลี่ยนรหัสผ่าน";
+          break;
+        case "reset-password":
+          this.pageTitle = "ตั้งรหัสผ่านใหม่";
+          break;
+      }
+    },
+    goBack() {
+      this.$router.back();
     }
   }
 };
