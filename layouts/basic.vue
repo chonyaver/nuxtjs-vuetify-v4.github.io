@@ -82,6 +82,45 @@
     <v-main class="bg-white">
       <v-container fluid>
         <Nuxt />
+        <v-speed-dial
+          v-model="fab"
+          class="absolute-right"
+          :direction="direction"
+          :transition="transition"
+        >
+          <template #activator>
+            <v-btn
+              v-model="fab"
+              color="transparent"
+              class="d-flex flex rounded-r-0 align-center text-center grad4 text-button"
+              max-width="58px"
+              height="44px"
+              dark
+              link
+            >
+              <v-icon v-if="fab">
+                mdi-close
+              </v-icon>
+              <span v-else class="text-button t-white t-shadow">
+                ติดต่อ
+              </span>
+            </v-btn>
+          </template>
+          <v-btn
+            v-for="(speedItem, i) in speedItems"
+            :key="i"
+            :color="speedItem.color"
+            :title="speedItem.title"
+            dark
+            fab
+            small
+            :href="speedItem.link"
+          >
+            <v-icon>
+              {{ speedItem.icon }}
+            </v-icon>
+          </v-btn>
+        </v-speed-dial>
       </v-container>
     </v-main>
     <!-- Bottom menu. -->
@@ -95,7 +134,7 @@
       tile
     >
       <v-card-actions
-        class="d-flex align-center justify-center text-center py-0 px-sm-1 px-md-2 px-lg-3 px-xl-3 transparent"
+        class="d-flex align-center justify-center text-center py-0 px-sm-1 px-md-2 px-lg-3 px-xl-3 transparent mx-1"
       >
         <v-spacer />
         <v-btn
@@ -105,7 +144,7 @@
           :class="bMenu.class"
           :title="bMenu.title"
           width="auto"
-          :height="$vuetify.breakpoint.smAndDown ? '57.5px' : '60px'"
+          :height="$vuetify.breakpoint.smAndDown ? '55px' : '60px'"
           elevation="0"
           dark
           link
@@ -113,7 +152,7 @@
           :to="bMenu.route"
         >
           <span
-            class="d-block mx-auto pa-2 justify-center align-center text-center"
+            class="d-block ma-auto pa-2 justify-center align-center text-center medium t-white"
           >
             <v-icon
               class="t-white mx-auto mb-1"
@@ -145,24 +184,34 @@
       height="auto"
       tile
     >
-      <v-app-bar dark tile dense color="transparent" elevation="0" class="pa-1">
+      <v-app-bar
+        dark
+        tile
+        dense
+        color="transparent"
+        elevation="0"
+        class="px-0 py-1 align-start"
+      >
         <v-app-bar-nav-icon
-          :small="$vuetify.breakpoint.smAndDown"
-          class="mt-0 ml-0 mb-auto mr-sm-3 mr-md-auto mr-lg-auto mr-xl-auto"
+          x-small
+          class="ml-0 mt-0 mb-auto mr-auto"
           @click.stop="drawer = !drawer"
         />
         <v-spacer />
+        <div class="mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5"></div>
         <v-toolbar-title
-          class="d-flex flex pa-1 mt-0 mb-1 mx-auto medium pointer"
-          style="width: auto; max-width: 165px"
+          class="d-flex flex px-2 py-1 mt-0 mb-1 mx-auto medium pointer"
+          style="width: auto; max-width: 150px"
+          @click="reload()"
         >
           <v-img alt="Logo svg" :src="logo" sizes="auto" class="ma-1"></v-img>
         </v-toolbar-title>
+        <div class="mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5"></div>
         <v-spacer />
-        <div class="mx-sm-2 mx-md-3 mx-lg-3 mx-xl-4"></div>
+        <div class="mx-2"></div>
       </v-app-bar>
       <v-card-actions
-        class="d-flex flex align-center justify-center text-center pa-1 mt-0 mb-1 mx-auto grad9 shadow"
+        class="d-flex flex align-center justify-center text-center px-1 py-0 mt-0 mb-1 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5 grad9 shadow"
       >
         <v-spacer />
         <v-btn
@@ -180,7 +229,7 @@
           :to="mItem.route"
         >
           <span
-            class="d-block ma-auto pa-1 justify-center align-center text-center t-white medium"
+            class="d-block ma-auto pa-2 justify-center align-center text-center t-white medium"
           >
             <v-icon
               class="t-white mx-auto mb-1"
@@ -194,49 +243,6 @@
         </v-btn>
         <v-spacer />
       </v-card-actions>
-      <v-speed-dial
-        v-model="fab"
-        class="mr-0 mt-0"
-        :direction="direction"
-        :transition="transition"
-        absolute
-        fixed
-        top
-        right
-      >
-        <template #activator>
-          <v-btn
-            v-model="fab"
-            color="transparent"
-            class="d-flex flex rounded-r-0 align-center text-center grad4 t-white t-shadow text-button"
-            max-width="58px"
-            height="44px"
-            dark
-            small
-          >
-            <v-icon v-if="fab">
-              mdi-close
-            </v-icon>
-            <span v-else class="t-white t-shadow text-button">
-              แชท
-            </span>
-          </v-btn>
-        </template>
-        <v-btn
-          v-for="(speedItem, i) in speedItems"
-          :key="i"
-          :color="speedItem.color"
-          elevation="14"
-          dark
-          fab
-          small
-          :href="speedItem.link"
-        >
-          <v-icon>
-            {{ speedItem.icon }}
-          </v-icon>
-        </v-btn>
-      </v-speed-dial>
     </v-card>
   </v-app>
 </template>
