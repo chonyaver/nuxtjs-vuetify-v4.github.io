@@ -93,8 +93,8 @@ module.exports = {
 
   // Doc: https://github.com/nuxt-community/vuetify-module
   vuetify: {
-    customVariables: ["./assets/variables.scss"],
-    optionsPath: "./vuetify.options.js"
+    customVariables: ["~/assets/variables.scss"],
+    optionsPath: "~/vuetify.options.js"
   },
 
   // serverMiddleware: [

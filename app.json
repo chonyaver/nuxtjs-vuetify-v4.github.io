@@ -1,0 +1,10 @@
+{
+  "name": "nuxtjs-vuetify",
+  "version": "1.1.0",
+  "require": [
+    {
+      "name": "BASE_URL",
+      "description": "Your heroku app url"
+    }
+  ]
+}

@@ -92,7 +92,7 @@
               v-model="fab"
               color="transparent"
               elevation="0"
-              class="d-flex flex rounded-r-0 align-center text-center mr-1 grad4 t-white medium"
+              class="d-flex flex rounded-r-0 align-center text-center mr-0 grad4 t-white medium"
               dark
               small
               max-width="54px"
@@ -177,13 +177,13 @@
       app
       dark
       elevation="15"
-      class="top grad11 py-1 px-0"
+      class="top grad11 py-0 px-0"
       width="100%"
       height="auto"
       tile
     >
       <v-card-actions
-        class="d-flex transparent px-1 py-0 justify-center align-center text-center"
+        class="d-flex transparent px-0 py-0 justify-center align-center text-center"
       >
         <v-btn
           color="transparent"
@@ -211,6 +211,17 @@
         </v-btn>
         <v-spacer />
         <div class="mx-3"></div>
+        <v-btn
+          color="transparent"
+          class="d-flex flex rounded-l-0 mr-0 ml-auto align-center text-center medium"
+          max-width="54px"
+          height="38px"
+          dark
+          elevation="0"
+          small
+        >
+          <v-app-bar-nav-icon x-small class="t-transparent" />
+        </v-btn>
       </v-card-actions>
       <v-card-actions
         class="d-flex px-0 py-0 grad9 justify-center align-center text-center"
@@ -414,7 +425,7 @@ v-file-input:below-level {
 
 .bg11 {
   background: url("https://res.cloudinary.com/dckrvb0rw/image/upload/v1690051131/public/svg/bg11_vnhmuu.svg");
-  background-size: contain 66px;
+  background-size: contain;
   background-repeat: repeat-x;
   background-position: left top;
 }
