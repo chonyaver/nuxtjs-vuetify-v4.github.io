@@ -25,7 +25,10 @@
     "start": {
       "name": "start",
       "command": "yarn start",
-      "runAtStart": false
+      "runAtStart": false,
+      "preview": {
+        "port": 3000
+      }
     },
     "generate": {
       "name": "generate",

@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import CustomFooter from "../../components/CustomFooter.vue";
+import CustomFooter from "../components/CustomFooter.vue";
 
 export default {
   name: "Currencies",
