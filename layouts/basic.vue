@@ -78,7 +78,7 @@
       </template>
     </v-navigation-drawer>
 
-    <v-main class="bg-animate-light" fill-height>
+    <v-main class="bg-white" fill-height>
       <v-container fluid>
         <Nuxt />
         <v-speed-dial
